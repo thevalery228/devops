@@ -1,0 +1,786 @@
+{
+	"info": {
+		"_postman_id": "25f88ad7-a318-4cd8-936e-4462b7dc8ab5",
+		"name": "Practice CICD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d250673-e972-4ca1-bba3-e40b6084c13a",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.globals.set(\"rndUserId\", jsonData.id);",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "603fe4fb-9ae2-4a7a-a44e-340f02ba3b66",
+						"exec": [
+							"function getRandomInt(min, max) {\r",
+							"        min = Math.ceil(min);\r",
+							"        max = Math.floor(max);\r",
+							"        return Math.floor(Math.random() * (max - min)) + min;\r",
+							"}\r",
+							"\r",
+							"const val = getRandomInt(10000000,99999999);\r",
+							"pm.globals.set('rndUser', \"User\" + val);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Login\": \"{{rndUser}}\",\r\n  \"NativeName\": \"Test User\",\r\n  \"Password\": \"12345\",\r\n  \"ConfirmPassword\": \"12345\"\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a3a0565-33e1-4800-a4dd-da5d65b3bfb4",
+						"exec": [
+							"var jsonResp = pm.response.json();",
+							"postman.setEnvironmentVariable(\"token\", jsonResp[\"access_token\"]);",
+							"",
+							"pm.test(\"Json contains valid Message\", function() {",
+							"    pm.expect(jsonResp.token_type).to.contain(\"bearer\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{rndUser}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "104.40.150.146/token",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd4b77b8-5937-4d1e-8dd5-77a2729c42b7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "104.40.150.146/api/me",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d853a2d1-5c78-4e74-9c8e-229517561a43",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"NativeName\": \"Test User Updated\",\r\n  \"Role\": 0,\r\n  \"OldPassword\": \"12345\",\r\n  \"Password\": \"123456\",\r\n  \"ConfirmPassword\": \"123456\"\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user/{{rndUserId}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{rndUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "209e5c22-f7cd-47fe-a837-c8b25e533af4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Login\": \"Swift1\",\r\n  \"NativeName\": \"Test User\",\r\n  \"Password\": \"12345\",\r\n  \"ConfirmPassword\": \"12345\"\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user/{{rndUserId}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{rndUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get maps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0460f4a2-ed31-42c1-b5ee-c2969ab3d165",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"mapId\", jsonData[0].id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "104.40.150.146/api/map",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"map"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get maps(s)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7475f677-23f8-4ab9-849d-cff1d7020e18",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"mapId\", jsonData[0].id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"123\",\r\n  \"MapId\": \"string\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/maps",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"maps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maps by user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d42cacd2-43af-4945-8adf-550463d85962",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "104.40.150.146/api/user/{{rndUserId}}/maps",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{rndUserId}}",
+						"maps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e2bd1d6d-f07b-4542-b1c5-a68a034fd8a4",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"gameId\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6538638f-3945-4b94-99aa-03f49dbb70cd",
+						"exec": [
+							"function getRandomInt(min, max) {\r",
+							"        min = Math.ceil(min);\r",
+							"        max = Math.floor(max);\r",
+							"        return Math.floor(Math.random() * (max - min)) + min;\r",
+							"}\r",
+							"\r",
+							"const val = getRandomInt(10,99);\r",
+							"pm.globals.set('rndGameName', \"Game\" + val);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"{{rndUser}}{{rndGameName}}\",\r\n  \"MapId\": \"{{mapId}}\",\r\n  \"SwitchTimeout\": 10,\r\n  \"StartupTeamLives\": 2,\r\n  \"PoliceSpeed\": 1,\r\n  \"ThiefSpeed\": 1\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get games",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "403e8816-09e0-4ab5-8e9b-beb1a1953c81",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"{{rndUser}}{{rndGameName}}\",\r\n  \"MapId\": \"string\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get game by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edee6fda-fc5a-4f32-b41f-c7c49add1dcb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"123\",\r\n  \"MapId\": \"string\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game/{{gameId}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get games of user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00f59591-8d81-4e78-985e-5ea7c9b24750",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "IShipAuthToken={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"{{rndUser}}{{rndGameName}}\",\r\n  \"MapId\": \"string\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/games?start=1&count=1",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"games"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9e04db2-3771-449d-9825-efbef73bcefd",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Cookie",
+						"type": "text",
+						"value": "IShipAuthToken={{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"{{rndUser}}{{rndGameName}}\",\r\n  \"MapId\": \"string\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}"
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game/{{gameId}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2f169e04-6cae-47c7-8fc7-624222d885fe",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e564adcf-6008-4623-a72d-805625013869",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
