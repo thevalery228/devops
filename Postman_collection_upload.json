@@ -55,7 +55,7 @@
 					]
 				},
 				"url": {
-					"raw": "104.40.150.146:8085/token",
+					"raw": "104.40.150.146/token",
 					"host": [
 						"104.40.150.146"
 					],
@@ -94,7 +94,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://104.40.150.146:8085/api/contentUpload?token={{token}}",
+					"raw": "http://104.40.150.146/api/contentUpload?token={{token}}",
 					"protocol": "http",
 					"host": [
 						"104.40.150.146"
@@ -141,7 +141,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://104.40.150.146:8085/api/contentUpload?token={{token}}",
+					"raw": "http://104.40.150.146/api/contentUpload?token={{token}}",
 					"protocol": "http",
 					"host": [
 						"104.40.150.146"
