@@ -5,68 +5,7 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Token",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c52955d2-660f-4b7e-a547-640f9d796958",
-						"exec": [
-							"var jsonResp = pm.response.json();",
-							"postman.setEnvironmentVariable(\"token\", jsonResp[\"access_token\"]);",
-							"",
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "grant_type",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "konef",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "104.40.150.146/token",
-					"host": [
-						"104.40.150.146"
-					],
-					"port": "8085",
-					"path": [
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
+	
 		{
 			"name": "IShip file upload game.html",
 			"request": {
@@ -89,76 +28,25 @@
 						{
 							"key": "",
 							"type": "file",
-							"src": "/var/lib/jenkins/workspace/ivanov_i/game.html"
+							"src": "/var/lib/jenkins/workspace/konev_i_pipe/game.html"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://104.40.150.146/api/contentUpload?token={{token}}",
+					"raw": "http://104.40.150.146/api/contentUpload",
 					"protocol": "http",
 					"host": [
-						"104.40.150.146"
+						"epruryaw0341"
 					],
 					"port": "8085",
 					"path": [
 						"api",
 						"contentUpload"
 					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
 				}
 			},
 			"response": []
 		},
-		{
-			"name": "IShip file upload style.css",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "IShipAuthToken={{token}}",
-						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "multipart/form-data;",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "",
-							"type": "file",
-							"src": "/var/lib/jenkins/workspace/ivanov_i/game.css"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://104.40.150.146/api/contentUpload?token={{token}}",
-					"protocol": "http",
-					"host": [
-						"104.40.150.146"
-					],
-					"port": "8085",
-					"path": [
-						"api",
-						"contentUpload"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
-				}
-			},
 			"response": []
 		}
 	]
