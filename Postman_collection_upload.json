@@ -49,15 +49,15 @@
 						},
 						{
 							"key": "password",
-							"value": "konef",
+							"value": "123456",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "epruryaw0341:8085/token",
+					"raw": "104.40.150.146:8085/token",
 					"host": [
-						"epruryaw0341"
+						"104.40.150.146"
 					],
 					"port": "8085",
 					"path": [
@@ -89,62 +89,15 @@
 						{
 							"key": "",
 							"type": "file",
-							"src": "/var/lib/jenkins/workspace/konev_i_pipe/game.html"
+							"src": "/var/lib/jenkins/workspace/ivanov_i/game.html"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://epruryaw0341:8085/api/contentUpload?token={{token}}",
+					"raw": "http://104.40.150.146:8085/api/contentUpload?token={{token}}",
 					"protocol": "http",
 					"host": [
-						"epruryaw0341"
-					],
-					"port": "8085",
-					"path": [
-						"api",
-						"contentUpload"
-					],
-					"query": [
-						{
-							"key": "token",
-							"value": "{{token}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "IShip file upload game.js",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Cookie",
-						"value": "IShipAuthToken={{token}}",
-						"type": "text"
-					},
-					{
-						"key": "Content-Type",
-						"value": "multipart/form-data;",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "",
-							"type": "file",
-							"src": "/var/lib/jenkins/workspace/konev_i_pipe/game.js"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://epruryaw0341:8085/api/contentUpload?token={{token}}",
-					"protocol": "http",
-					"host": [
-						"epruryaw0341"
+						"104.40.150.146"
 					],
 					"port": "8085",
 					"path": [
@@ -183,15 +136,15 @@
 						{
 							"key": "",
 							"type": "file",
-							"src": "/var/lib/jenkins/workspace/konev_i_pipe/game.css"
+							"src": "/var/lib/jenkins/workspace/ivanov_i/game.css"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://epruryaw0341:8085/api/contentUpload?token={{token}}",
+					"raw": "http://104.40.150.146:8085/api/contentUpload?token={{token}}",
 					"protocol": "http",
 					"host": [
-						"epruryaw0341"
+						"104.40.150.146"
 					],
 					"port": "8085",
 					"path": [
