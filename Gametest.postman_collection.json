@@ -1,0 +1,616 @@
+{
+	"info": {
+		"_postman_id": "f123bdd8-c7a9-42d3-8452-fee388b9112c",
+		"name": "Gametest",
+		"description": "test my game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1)reguser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f20e6fed-5219-49c2-a8d1-8ab01ed6293a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"12maks23445\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Login\": \"12maks23445\", // это в тесте менять\r\n  \"NativeName\": \"sdfsd2f43\",\r\n  \"Password\": \"string\",\r\n  \"ConfirmPassword\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "user reg"
+			},
+			"response": []
+		},
+		{
+			"name": "Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "12newte3st234213",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "string",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "104.40.150.146/token",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"token"
+					]
+				},
+				"description": "get token"
+			},
+			"response": []
+		},
+		{
+			"name": "2)infoaboutme",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4455d9b9-bc89-4d99-8654-19fa74fbb79b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"12newte3st234213\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/me",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"me"
+					]
+				},
+				"description": "info about me"
+			},
+			"response": []
+		},
+		{
+			"name": "3)updateinfoaboutme",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "873b2cd4-59c2-473c-8d05-4ac3bba5e141",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your nativeName\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.nativeName).to.eql(\"newTestovii1332a1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"NativeName\": \"newTestovii1332a1\",\r\n  \"role\": 1,\r\n  \"OldPassword\": \"string\",\r\n  \"Password\": \"string\",\r\n  \"ConfirmPassword\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user/3656073c8f114e4e97cd10afd4b4fd6e",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"3656073c8f114e4e97cd10afd4b4fd6e"
+					]
+				},
+				"description": "update info about me"
+			},
+			"response": []
+		},
+		{
+			"name": "4)getinfoaboutuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38b1b3ff-cff0-44d9-bedd-761a706fb52a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"12newte3st234213\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/user/3656073c8f114e4e97cd10afd4b4fd6e",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"3656073c8f114e4e97cd10afd4b4fd6e"
+					]
+				},
+				"description": "get info about user"
+			},
+			"response": []
+		},
+		{
+			"name": "5)getmap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51ceb20a-d81f-486c-a078-dbd8fa2b535f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your id 1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/map",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"map"
+					]
+				},
+				"description": "get map"
+			},
+			"response": []
+		},
+		{
+			"name": "6)creategame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "093bd7f2-c0ac-412f-9361-cd8d91f63e38",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"string1\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('gameid',pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"string1\",\r\n  \"MapId\": \"bebe519dd8f7458eb8fd9aba960d17e7\",\r\n  \"SwitchTimeout\": 0,\r\n  \"StartupTeamLives\": 0,\r\n  \"PoliceSpeed\": 0,\r\n  \"ThiefSpeed\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				},
+				"description": "create game"
+			},
+			"response": []
+		},
+		{
+			"name": "7)getgames",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74011cbe-90ee-4d37-996f-bd5d34534050",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your name 0\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].name).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/games",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8)getinfoaboutgame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da7bfae6-795a-46ac-8324-abbf67ea82fc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your type\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.map.cells[0].type).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAABJ25gLB3WcVKx6tVebAKdDkpWq18DacH0j8a_UUEnM2gAAAAAOgAAAAAIAACAAAACtrOa2qRXaZSBQgQ-CysTGi12l-r3IwL4Lv_NKRXcdDhABAAA7Y9dXkGjCg6ouUTdG3zDl_ULpqhmn1LajoaFepvGFg7JB6YdXLlmF8W_PyS08udIhq9kfQqfQDq58-8MDDFuHz7grGaVhIPUg0_oUesMa7655rsmRMDN4IzTIYuZ46FrzEBY44Ed3L6ba3XXHGR8d_ulH5J0mtNe5XUeiuuqRwCfRuvqz8_4iGilCtreWeywlKqvONqLHDstVr11nq-tjA7xizhf_fdVxAzYV2FCDal495sW8XM_uUCj8V7RpLMktWd3sxTgNr81686FZwSiDMCTO9R8D42h038GfMy6ko93Hz-x6hC3tm4E9OUDntfk-v325qXlTmhi62MK0D28Ng-JDPG35yFTtQskIkKyrJEAAAADrDA49A4guK1K0cTm0gJ2i1e4QBQu7Py9CJCyNO1_HY5ziZqyZiKFZHuhQle1rVq7RHtDF5WaF1mOSwdwNANuB",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game/586f21a3d47949cda524b4003f3e44fd",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"586f21a3d47949cda524b4003f3e44fd"
+					]
+				},
+				"description": "get info about game"
+			},
+			"response": []
+		},
+		{
+			"name": "9)getinfoaboutallgame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0aa031c-9ff2-4cfa-8429-eb428fc92d9c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].name).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10)deletegame",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "323d06a4-28e8-427a-a61e-dabd271373e0",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game/{{gameid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"{{gameid}}"
+					]
+				},
+				"description": "delete game"
+			},
+			"response": []
+		},
+		{
+			"name": "11)getmaps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d106b33e-5ce5-4390-842c-37ec64673de1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your string\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/maps",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"maps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12)getmapsfromuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "389d1a94-64d4-49c1-b1a1-b0f2e660914a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].name).to.eql(\"sdfg56\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/user/3656073c8f114e4e97cd10afd4b4fd6e/maps",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"3656073c8f114e4e97cd10afd4b4fd6e",
+						"maps"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAAA4wiZduzlj79yaY2tP1Hf5Ly3WyEyvqG8LPo2H_GK5mgAAAAAOgAAAAAIAACAAAAAzBH2FYMfvlScdN8Ic5BZBodrBHN4bI70d80wTjozwDBABAAAW71_pxK5sfc2N0Z2GRl2PqodoCvlx0amsItjIDjHnuYcz1fdh1v_X_u2YhvP5RCALwGjep3-0vYXgkGSl15De-Xe829vS0NQXvCpuuAIjvo_WudeaGD2tdAD2b3rBikfSMaPPp-82hjHY1R5RlqjHPaFrT_XhROuKwWgdNStJ30kD1F1nf5pBqlWO-XicrYMxTIeJ6B8I0hOgRLasO6Y5nCnLuxwitqDrYEq7WmpyARLswEoYpbTZ7wEEzoRP5-d5t0rHhNiwl1dINWb4fi1ijuXT4bYBlFD21B41FbjMTv5g7Ol8xIQEOlYhlmoa7uDHwKSfPgpJeSgPZluOhPiKtm_mjz_9wUOtanUm4XZ0SEAAAACIhlp6fmWpxnj096PHovLM9HHf8ld7xOLqAbOT6L6oghfxRT2ZZtVZAtQ_cPYfEktIb84jcvxfG5mgwZf0q2zS",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "806ae4cd-7c72-43e1-9005-712c791037dc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f5ac9b60-e05a-4233-97f3-2e068937b344",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
