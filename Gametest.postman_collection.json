@@ -315,58 +315,6 @@
 			"response": []
 		},
 		{
-			"name": "8)getinfoaboutgame",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f2500273-4f3e-4f8a-9fdf-82304bd544c8",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Your type\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.map.cells[0].type).to.eql(2);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAABJ25gLB3WcVKx6tVebAKdDkpWq18DacH0j8a_UUEnM2gAAAAAOgAAAAAIAACAAAACtrOa2qRXaZSBQgQ-CysTGi12l-r3IwL4Lv_NKRXcdDhABAAA7Y9dXkGjCg6ouUTdG3zDl_ULpqhmn1LajoaFepvGFg7JB6YdXLlmF8W_PyS08udIhq9kfQqfQDq58-8MDDFuHz7grGaVhIPUg0_oUesMa7655rsmRMDN4IzTIYuZ46FrzEBY44Ed3L6ba3XXHGR8d_ulH5J0mtNe5XUeiuuqRwCfRuvqz8_4iGilCtreWeywlKqvONqLHDstVr11nq-tjA7xizhf_fdVxAzYV2FCDal495sW8XM_uUCj8V7RpLMktWd3sxTgNr81686FZwSiDMCTO9R8D42h038GfMy6ko93Hz-x6hC3tm4E9OUDntfk-v325qXlTmhi62MK0D28Ng-JDPG35yFTtQskIkKyrJEAAAADrDA49A4guK1K0cTm0gJ2i1e4QBQu7Py9CJCyNO1_HY5ziZqyZiKFZHuhQle1rVq7RHtDF5WaF1mOSwdwNANuB",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "104.40.150.146/api/game/586f21a3d47949cda524b4003f3e44fd",
-					"host": [
-						"104",
-						"40",
-						"150",
-						"146"
-					],
-					"path": [
-						"api",
-						"game",
-						"586f21a3d47949cda524b4003f3e44fd"
-					]
-				},
-				"description": "get info about game"
-			},
-			"response": []
-		},
-		{
 			"name": "9)getinfoaboutallgame",
 			"event": [
 				{
@@ -535,7 +483,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAAA4wiZduzlj79yaY2tP1Hf5Ly3WyEyvqG8LPo2H_GK5mgAAAAAOgAAAAAIAACAAAAAzBH2FYMfvlScdN8Ic5BZBodrBHN4bI70d80wTjozwDBABAAAW71_pxK5sfc2N0Z2GRl2PqodoCvlx0amsItjIDjHnuYcz1fdh1v_X_u2YhvP5RCALwGjep3-0vYXgkGSl15De-Xe829vS0NQXvCpuuAIjvo_WudeaGD2tdAD2b3rBikfSMaPPp-82hjHY1R5RlqjHPaFrT_XhROuKwWgdNStJ30kD1F1nf5pBqlWO-XicrYMxTIeJ6B8I0hOgRLasO6Y5nCnLuxwitqDrYEq7WmpyARLswEoYpbTZ7wEEzoRP5-d5t0rHhNiwl1dINWb4fi1ijuXT4bYBlFD21B41FbjMTv5g7Ol8xIQEOlYhlmoa7uDHwKSfPgpJeSgPZluOhPiKtm_mjz_9wUOtanUm4XZ0SEAAAACIhlp6fmWpxnj096PHovLM9HHf8ld7xOLqAbOT6L6oghfxRT2ZZtVZAtQ_cPYfEktIb84jcvxfG5mgwZf0q2zS",
+				"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAAB1L1884TbPTFi_-sbXYF4ee79tZSdnFMyjkHcXfV4S0QAAAAAOgAAAAAIAACAAAADMQ65ov0uxs1LhxfFdhJsp8qTlcGjqt5UjfpSKnMT3bBABAACYJj3JckpcZ5iZb8E2Q7ZfYaSRpJ21bceT3dbuZoUSMw9DOzFwFSbEkNkQ0P7G47JSfM2tp-fsCqmfiknDtAY3Rmmqd3fkPHhIxUdJQTfZO6BSeNGcUOxi1oB-sW8hs9y7wJxw9i-XcdQTaeBJTAmOKzbijv7Pl5oA_d-AyVH7fLw9_C169qdZUTPVhdSGz1BXf3CxiXPmqy1dDonY6O_gG2ZY0Su74sh2bNbor3tMAQNJfr3yUkGbM7msD6mFWQlNHueELzvj-KXQ50Hpr1_laMcF7i-7k3xBtQ_J4YcrYbAk3YArJH-uaRLfPskX2XScUrB4H_5BFpyr5lsybChnUbLSwRLYc0RnwrnEg2_8REAAAAAlM2W-2Rrk-c5IeF2b3gwdWQCLsps-k3zjVlPxFdSeq_pvqmwYo_4veL4HuXNDlG_1VE2oDsSomJuZEiXlPctT",
 				"type": "string"
 			}
 		]
